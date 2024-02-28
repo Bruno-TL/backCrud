@@ -7,7 +7,6 @@ $parts = explode('/', $rota);
 
 include_once '../src/controllers/TodoController.php';
 $controller = new TodoController();
-echo $parts[1] ;
 switch ($parts[1]) {
     case 'list':
         $controller->index();
@@ -16,7 +15,7 @@ switch ($parts[1]) {
         $controller->create();
         break;
     case 'update':
-        $todoId = intval($parts[2]);
+        $todoId = !empty($parts[2]) ?? intval($parts[2]);
         $controller->edit($todoId);
         break;
     case 'delete':

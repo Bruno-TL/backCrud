@@ -1,9 +1,16 @@
 <?php
+include_once '../src/models/TodoModel.php';
 
 class TodoController{
+    private $model;
+
+    public function __construct() {
+        $this->model = new TodoModel();
+    }
+
     public function index() {
-        $mensagem = "Bem-vindo à página de Todos!";
-        echo $mensagem;
+        $result = $this->model->getItens();
+        return json_encode($result);
     }
 
     public function create() {
