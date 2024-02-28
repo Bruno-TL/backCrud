@@ -14,7 +14,7 @@ class TodoController{
     }
 
     public function getItem(int $id){
-        if(!is_null($id)){
+        if(!is_null($id) && $id !== 0){
             $result = $this->model->getItem($id);
             return json_encode($result);
         }
@@ -32,19 +32,23 @@ class TodoController{
             $email = $_POST['email'];
             $phone = $_POST['phone'];
 
-            $result = $this->model->createItem($name,$email,$phone);
-            return json_encode($result);
+            if(!is_null($name)){
+                $result = $this->model->createItem($name,$email,$phone);
+                return json_encode($result);
+            }
         }
     }
 
     public function update(int $id) {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !is_null($id)) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !is_null($id) && $id !== 0) {
             $name = $_POST['name'];
             $email = $_POST['email'];
             $phone = $_POST['phone'];
 
-            $result = $this->model->updateItem($id,$name,$email,$phone);
-            return json_encode($result);
+            if(!is_null($name)){
+                $result = $this->model->updateItem($id,$name,$email,$phone);
+                return json_encode($result);
+            }
         }
         $result = [
             'status' => 400,
@@ -54,7 +58,7 @@ class TodoController{
     }
 
     public function delete(int $id) {
-        if(!is_null($id)){
+        if(!is_null($id) && $id !== 0){
             $result = $this->model->deleteItem($id);
             return json_encode($result);
         }

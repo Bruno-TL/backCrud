@@ -10,19 +10,18 @@ switch ($parts[1]) {
         $controller->index();
         break;
     case 'item':
-        $itemId = !empty($parts[2]) ? intval($parts[2]) : null;
-        echo $itemId;
+        $itemId = !empty($parts[2]) ? intval($parts[2]) : 0;
         $controller->getItem($itemId);
         break;
     case 'create':
         $controller->create();
         break;
     case 'update':
-        $itemId = !empty($parts[2]) ? intval($parts[2]) : null;
+        $itemId = !empty($parts[2]) ? intval($parts[2]) : 0;
         $controller->update($itemId);
         break;
     case 'delete':
-        $itemId = !empty($parts[2]) ? intval($parts[2]) : null;
+        $itemId = !empty($parts[2]) ? intval($parts[2]) : 0;
         $controller->delete($itemId);
     default:
         include_once '../src/controllers/ErrorController.php';
