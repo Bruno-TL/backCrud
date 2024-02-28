@@ -63,4 +63,18 @@ class TodoModel {
         $sql = "UPDATE crud_php.todo SET name = {$name}, email = {$email}, phone = {$phone} WHERE id = {$id}";
         return $this->executeQuery($sql,$typeQuery);
     }
+
+    public function createItem(string $name, string $email,string $phone): array
+    {
+        $typeQuery = 'create';
+        $sql = "INSERT INTO crud_php.todo (name, email, phone) VALUES ('{$name}', '{$email}', '{$phone}')";
+        return $this->executeQuery($sql,$typeQuery);
+    }
+
+    public function deleteItem(int $id)
+    {
+        $typeQuery = 'delete';
+        $sql = "DELETE FROM crud_php.todo WHERE id = {$id}";
+        return $this->executeQuery($sql,$typeQuery);
+    }
 }

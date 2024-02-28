@@ -14,26 +14,31 @@ class TodoController{
     }
 
     public function getItem(int $id){
-        $result = $this->model->getItem($id);
+        if(!is_null($id)){
+            $result = $this->model->getItem($id);
+            return json_encode($result);
+        }
+        $result = [
+            'status' => 400,
+            'message' => 'Erro ao tentar pegar o item'
+        ];
         return json_encode($result);
+        
     }
 
     public function create() {
-        // Método para exibir o formulário de criação de usuário
-    }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
 
-    public function store() {
-        // Método para processar os dados do formulário de criação de usuário
-    }
-
-    public function edit(int $id) {
-        // Método para exibir o formulário de edição de usuário
+            $result = $this->model->createItem($name,$email,$phone);
+            return json_encode($result);
+        }
     }
 
     public function update(int $id) {
-        // Método para processar os dados do formulário de edição de usuário
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($id)) {
-            // Recuperar os dados do formulário
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !is_null($id)) {
             $name = $_POST['name'];
             $email = $_POST['email'];
             $phone = $_POST['phone'];
@@ -43,12 +48,20 @@ class TodoController{
         }
         $result = [
             'status' => 400,
-            'message' => 'Erro ao fazer update do todo'
+            'message' => 'Erro ao fazer update do item'
         ];
         return json_encode($result);
     }
 
     public function delete(int $id) {
-        // Método para excluir um usuário
+        if(!is_null($id)){
+            $result = $this->model->deleteItem($id);
+            return json_encode($result);
+        }
+        $result = [
+            'status' => 400,
+            'message' => 'Erro ao tentar deletar um item'
+        ];
+        return json_encode($result);
     }
 }

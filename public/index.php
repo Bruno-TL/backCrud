@@ -19,7 +19,7 @@ switch ($parts[1]) {
         break;
     case 'update':
         $itemId = !empty($parts[2]) ? intval($parts[2]) : null;
-        $controller->edit($itemId);
+        $controller->update($itemId);
         break;
     case 'delete':
         $itemId = !empty($parts[2]) ? intval($parts[2]) : null;
