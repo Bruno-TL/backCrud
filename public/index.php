@@ -3,24 +3,27 @@
 $rota = $_SERVER['REQUEST_URI'];
 $parts = explode('/', $rota);
 
-// require_once '../src/connection/db_connection.php';
-
 include_once '../src/controllers/TodoController.php';
 $controller = new TodoController();
 switch ($parts[1]) {
     case 'list':
         $controller->index();
         break;
+    case 'item':
+        $itemId = !empty($parts[2]) ? intval($parts[2]) : null;
+        echo $itemId;
+        $controller->getItem($itemId);
+        break;
     case 'create':
         $controller->create();
         break;
     case 'update':
-        $todoId = !empty($parts[2]) ?? intval($parts[2]);
-        $controller->edit($todoId);
+        $itemId = !empty($parts[2]) ? intval($parts[2]) : null;
+        $controller->edit($itemId);
         break;
     case 'delete':
-        $todoId = intval($parts[2]);
-        $controller->delete($todoId);
+        $itemId = !empty($parts[2]) ? intval($parts[2]) : null;
+        $controller->delete($itemId);
     default:
         include_once '../src/controllers/ErrorController.php';
         $controller = new ErrorController();
